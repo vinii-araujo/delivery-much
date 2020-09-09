@@ -1,0 +1,36 @@
+import csv
+
+sourcefile = "D:\AB_NYC_2019.csv"
+outputfile = "D:\AB_NYC_2019_modified.csv"
+
+fields = []
+rows = []
+selected_fields = ['id', 'host_id', 'price', 'number_of_reviews', 'last_review']
+selected_rows = []
+indexes = []
+
+
+with open(sourcefile, encoding="utf8") as sourcefile:
+    csvreader = csv.reader(sourcefile)
+
+    fields = next(csvreader)
+
+    for row in csvreader:
+        rows.append(row)
+
+for selected_field in selected_fields:
+    i = 0
+    for field in fields:
+        if field == selected_field: (
+            indexes.append(i)
+        )
+        i += 1
+
+with open("D:\Downloads\AB_NYC_2019_modified.csv", mode='w') as outputfile:
+    csv_writer = csv.writer(outputfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+    for row in rows:
+        a = []
+        for index in indexes :
+            a.append(row[index])
+        csv_writer.writerow(a)
